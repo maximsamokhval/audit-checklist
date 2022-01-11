@@ -1,0 +1,9 @@
+site_name: Hello World
+site_url: https://maximsamokhval.github.io/audit-checklist
+site_author: Maxim Samokhval
+
+repo_name: maximsamokhval/audit-checklist
+repo_url: https://github.com/maximsamokhval/audit-checklist
+edit_uri: edit/main/docs
+
+copyright: Copyright &copy; 2021 Maxim Samokhval
