@@ -11,6 +11,7 @@ extra:
   social:
     - icon: fontawesome/brands/telegram
       link: https://t.me/maksym_samokhval
+      name: Telegram me
     - icon: fontawesome/brands/github
       link: https://github.com/maximsamokhval
 
@@ -18,33 +19,48 @@ copyright: Copyright &copy; 2022 Maxim Samokhval
 
 theme:
   name: material
+
   features:
     - toc.integrate
     - navigation.top
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.instant
+    - navigation.tracking
+    - navigation.expand
     - header.autohide
+    - announce.dismiss
     - search.highlight
+    - search.suggest
+    - search.share
 
   palette:
     - scheme: default
-      primary: orange
-      accent: indigo
+      primary: blue grey
+      accent: light blue
       toggle:
         icon: material/lightbulb-outline
         name: Switch to dark mode
     - scheme: slate
-      primary: orange
-      accent: light blue
+      primary: blue grey
+      accent: deep orange
       toggle:
         icon: material/lightbulb
         name: Switch to light mode
   language: ru
   font:
     text: Play
+    code: Roboto Mono
   icon:
     repo: fontawesome/brands/git
   plugins:
     - tags
     - social
+    - search:
+        lang:
+          - en
+          - ru
 
 markdown_extensions:
   - admonition
@@ -52,10 +68,22 @@ markdown_extensions:
   - attr_list
   - def_list
   - footnotes
+  - tables
   - meta
   - md_in_html
+  - pymdownx.betterem
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.keys
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.snippets
+  - toc:
+      permalink: true
 
 nav:
-  - Стартовая страница: index.md
+  - Home: index.md
   - MS SQL: MS SQL.md
   - 1С:Предприятие: Сервер 1С Предприятие.md
