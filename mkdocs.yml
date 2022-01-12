@@ -57,6 +57,7 @@ theme:
   plugins:
     - tags
     - social
+    - rss
     - search:
         lang:
           - en
