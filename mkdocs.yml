@@ -1,7 +1,7 @@
-site_name: Помощник настройки production окружения
+site_name: Справочник. Настройки рабочего окружения
 site_url: https://maximsamokhval.github.io/audit-checklist/
 site_author: Maxim Samokhval
-
+site_description: Сборник полезной информации по настройке рабочего окружения
 repo_name: maximsamokhval/audit-checklist
 repo_url: https://github.com/maximsamokhval/audit-checklist
 edit_uri: edit/main/docs
@@ -23,12 +23,12 @@ theme:
   features:
     - toc.integrate
     - navigation.top
-    - navigation.tabs
-    - navigation.tabs.sticky
+    #- navigation.tabs
+    #- navigation.tabs.sticky
     - navigation.sections
     - navigation.instant
     - navigation.tracking
-    - navigation.expand
+    #- navigation.expand
     - header.autohide
     - announce.dismiss
     - search.highlight
@@ -78,6 +78,8 @@ markdown_extensions:
   - pymdownx.snippets
   - pymdownx.superfences
   - pymdownx.keys
+  - pymdownx.tabbed:
+      alternate_style: true
   - pymdownx.tasklist:
       custom_checkbox: true
   - pymdownx.snippets
@@ -85,8 +87,18 @@ markdown_extensions:
       permalink: true
 
 nav:
-  - Home: index.md
-  - MS SQL: 
-      - MS SQL.md
-      - Check-List.md
-  - 1С:Предприятие: Сервер 1С Предприятие.md
+  - Начало: index.md
+  - SQL Docs:
+      - SQL/MS SQL.md
+      - SQL/PostgreSQL.md
+  - 1С:Предприятие:
+      - 1CServer/index.md
+  - Windows:
+      - Windows/index.md
+  - Технологический журнал:
+      - TechJournal/index.md 
+      - TechJournal/analyse.md    
+  - Заметки:
+      - Notes/index.md
+  - Про сайт:
+      - about/index.md

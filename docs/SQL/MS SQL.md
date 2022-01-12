@@ -1,4 +1,7 @@
-# Проверка MS SQL Server
+# MS SQL. Настройка
+
+- [x] Установить дополнительное программное обеспечение
+    - [x] Скрипты Brent Ozar в базу master [github репозиторий](https://github.com/BrentOzarULTD/SQL-Server-First-Responder-Kit)
 
 ## Проверка статистики ожиданий
 
@@ -177,7 +180,6 @@ ORDER BY [Percent_Scan] ESC
 </details>
 
 
-
 - [x] Включить Data Collection
 
 ### Рекомендации (Data Collection)
@@ -189,13 +191,103 @@ ORDER BY [Percent_Scan] ESC
     **Важный отчет** : Server Activity History за 14 дней
 
 
+## Настроить параллелизм в MS SQL Server
+
+Оставить настройку Max degree of parallelism = 0, но установить настройку Cost threshold for parallelism = 30.
+
+Такая настройка означает, что MS SQL будет самостоятельно решать, сколько потоков использовать для выполнения одного запроса, но распараллеливание будет включаться, только если стоимость плана запроса будет выше 30.
+
+Стоимость плана измеряется в неких условных единицах и отражает, насколько «тяжелым» является запрос для исполнения. Чем выше стоимость, тем сильнее запрос нагружает систему. При настройках по умолчанию параллельность включается, если стоимость плана выше 5. Значение 30 — не какая-то сакральная величина: просто, с точки зрения автора, оно подходит для большинства систем.
+
+Благодаря такой настройке параллельность будет использоваться только для действительно сложных запросов. Запросы полегче продолжат выполняться в один поток — им распараллеливание все равно не дает заметного ускорения.
+
+Следует отметить, что это решение не освобождает от необходимости оптимизировать «тяжелые» запросы, но оно хотя бы не мешает другим операциям выполняться быстро.
+<details>  
+  <summary>Установка cost threshold for parallelism</summary>
+
+``` SQL 
+  EXEC sys.sp_configure N'show advanced options', N'1' RECONFIGURE WITH OVERRIDE
+  GO
+  EXEC sys.sp_configure N'cost threshold for parallelism', N'30'
+  GO
+  RECONFIGURE WITH OVERRIDE
+  GO
+  EXEC sys.sp_configure N'show advanced options', N'0' RECONFIGURE WITH OVERRIDE
+  GO
+
+```
+</details>
+
+!!! warning
+    - [x] Сбросить статистику после изменения настроек
+    ``` sql
+    DBCC SQLPERF (N'sys.dm_os_wait_stats', CLEAR);
+    GO
+    ```
+
+### Несколько ситуаций, при которых не стоит отключать распараллеливание:
+
+- Описанный в документации случай, когда один запрос при распараллеливании замедляет всех — не самый распространенный паттерн. Чаще неоптимальный запрос выполняется медленно в один поток, хотя мог бы выполняться гораздо быстрее в несколько потоков, при этом несильно загружая процессор.
+- Если отключить распараллеливание на уровне сервера, тогда и регламентные операции по умолчанию тоже будут выполняться в один поток. Чтобы этого избежать, нужно указывать настройку распараллеливания (MAXDOP = 0) для регламентного задания дефрагментации/реиндексации, чего многие, к сожалению, не делают.
+- Новый механизм реструктуризации работает гораздо быстрее, если включено распараллеливание. Об этом сказано и в документации. Там же предлагается каждый раз перед реструктуризацией включать параллельность, а после обновления — отключать. Но все мы люди, и часто разработчики просто забывают установить параметр в нужное значение. В итоге реструктуризация больших таблиц даже с новым механизмом идет медленно.
+- Ожидания CXPACKET зачастую интерпретируются неправильно. Их наличие далеко не всегда говорит о проблемах с распараллеливанием. Если хочется больше узнать об этом, подробности Вы найдете в статье [Troubleshooting the CXPACKET wait type in SQL Server](https://www.sqlshack.com/troubleshooting-the-cxpacket-wait-type-in-sql-server/).
+
+
+## Проверить, сколько ядер использует MS SQL Server
+
+Чтобы узнать, сколько логических процессоров (ядра, в том числе и гиперпоточные) задействует Ваш экземпляр MS SQL, следует выполнить следующий запрос
+
+<details>  
+  <summary>Количество задействованых логических процессоров</summary>
+
+``` SQL 
+select * from sys.dm_os_schedulers where status = ‘VISIBLE ONLINE’ and is_online = 1
+```
+</details>
+
 ## Планы запросов
 
-wefgwergf
+Перед выполнением запроса СУБД проверяет наличие актуального кэшированного плана запроса. Если такой план запроса существует, тогда СУБД использует его, а не компилирует план запроса заново. Это позволяет сократить время выполнения запроса и именно поэтому, после выполнения очистки процедурного кэша, запросы выполняются дольше (происходит компиляция плана запроса). Таким образом, если мы знаем текст искомого запроса, мы можем получить его план из кэша (если он есть в кэше). Для этого необходимо обратиться к следующим динамическим функциям:
+
+<details>  
+  <summary>ПОЛУЧЕНИЕ КЭШИРОВАННОГО ПЛАНА ЗАПРОСА С ПОМОЩЬЮ ДИНАМИЧЕСКОЙ ФУНКЦИИ</summary>
+``` sql
+SELECT TOP 20
+	qs.last_execution_time AS Last_execution_time,
+	SUBSTRING(qt.text, 
+				(qs.statement_start_offset/2) + 1, 
+				((CASE qs.statement_end_offset 
+						WHEN -1 THEN DATALENGTH(qt.text) 
+						ELSE qs.statement_end_offset 
+					END - qs.statement_start_offset)/2) + 1) AS Query_text, 
+	qp.query_plan AS Query_plan,
+	qs.execution_count AS Execution_count
+FROM sys.dm_exec_query_stats AS qs
+	CROSS APPLY sys.dm_exec_sql_text(qs.sql_handle) AS qt
+	CROSS APPLY sys.dm_exec_query_plan(qs.plan_handle) AS qp
+WHERE qs.last_execution_time > '2016-08-01 11:30:00.000' /* 1. Date & Time filter */
+	and qt.text like '%FROM dbo._AccumRg17539 T1%'	/* 2. SQL query text filter */
+	and qt.text not like '%Query Finder%' /* 3. Special condition */
+```
+</details>
+
+
+
+В запросе добавлены условия по:
+
+Времени последнего выполнения
+Тексту искомого запроса (таких фильтров можно добавить несколько, уточняя результат поиска)
+Специальное условие для того чтобы сам запрос поиска не попадал в результат поиска (менять не надо)
+Результатом запроса будет таблица с колонками:
+  * Last_execution_time (последнее время выполнения), 
+  * Query_text (текст SQL-запроса), 
+  * Query_plan (План SQL-запроса) 
+  * Execution_count (количество выполнений).
 
 
 !!! info "Источники"
      - [Анализируем ожидания с помощью динамического административного представления SQL](https://www.osp.ru/winitpro/2018/02/13054056)
+     - [gilev.ru "CXPACKET в топе по ожиданиям на MSSSQL"](http://www.gilev.ru/forum/viewtopic.php?f=18&t=1201&sid=a2f93a47336babab8f21cdf92d9c23fe)
      - [CXPACKET](https://www.sqlskills.com/help/waits/cxpacket/)
      - [DBCC SQLPERF](https://docs.microsoft.com/en-us/sql/t-sql/database-console-commands/dbcc-sqlperf-transact-sql?view=sql-server-ver15)
      - [Troubleshooting the CXPACKET wait type in SQL Server](https://www.sqlshack.com/troubleshooting-the-cxpacket-wait-type-in-sql-server/)
