@@ -66,6 +66,7 @@ markdown_extensions:
   - admonition
   - abbr
   - attr_list
+  - md_in_html
   - def_list
   - footnotes
   - tables
@@ -85,5 +86,7 @@ markdown_extensions:
 
 nav:
   - Home: index.md
-  - MS SQL: MS SQL.md
+  - MS SQL: 
+      - MS SQL.md
+      - Check-List.md
   - 1С:Предприятие: Сервер 1С Предприятие.md
