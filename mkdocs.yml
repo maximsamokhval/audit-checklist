@@ -55,14 +55,15 @@ theme:
   icon:
     repo: fontawesome/brands/git
   plugins:
-    - tags
+    #- tags
     - social
 
 plugins:
   - rss
+  - git-revision-date-localized
   - search:
       lang:
-        - ru 
+        - ru
         - en
 markdown_extensions:
   - admonition
