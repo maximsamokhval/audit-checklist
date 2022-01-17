@@ -57,12 +57,13 @@ theme:
   plugins:
     - tags
     - social
-    - rss
-    - search:
-        lang:
-          - en
-          - ru
 
+plugins:
+  - rss
+  - search:
+      lang:
+        - ru 
+        - en
 markdown_extensions:
   - admonition
   - abbr
@@ -90,15 +91,16 @@ markdown_extensions:
 nav:
   - Начало: index.md
   - SQL Docs:
-      - SQL/MS SQL.md
-      - SQL/PostgreSQL.md
+      - MS SQL: SQL/MS SQL.md
+      - PostgreSQL: SQL/PostgreSQL.md
+      - lifehacks: SQL/lifehacks.md
   - 1С:Предприятие:
       - 1CServer/index.md
   - Windows:
       - Windows/index.md
   - Технологический журнал:
-      - TechJournal/index.md 
-      - TechJournal/analyse.md    
+      - TechJournal/index.md
+      - TechJournal/analyse.md
   - Заметки:
       - Notes/index.md
   - Про сайт:
