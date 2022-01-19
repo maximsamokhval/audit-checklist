@@ -16,6 +16,7 @@
 
 !!! info "Репозитории"
     - [x] [Скрипты бекапа, восстановления, удаления и обслуживания баз 1С PostgreSQL (Windows)](https://github.com/anklav24/PostgreSQL-Scripts)
+    - [x] [pgBadger - a fast PostgreSQL log analysis report](https://github.com/darold/pgbadger)
 
 
 <details>  
