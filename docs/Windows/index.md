@@ -12,5 +12,7 @@ powercfg /query SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMAX
     - [x] choco install sysinternals
     - [x] wget https://github.com/oscript-library/ovm/releases/download/v1.0.0-
 RC15/ovm.exe
+- [x] [oscript.io](https://oscript.io/downloads)
+
 - [x] Проверка служб автозапуска 
   
