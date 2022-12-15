@@ -268,6 +268,111 @@ where seq_tup_read > 0
 [Deep dive into PostgreSQL internal statistics. Алексей Лесовский](https://habr.com/ru/post/505440/)
 
 
+
+## Полезные запросы
+
+### Базы данных с максимальным IO Postgres
+
+``` sql 
+
+SELECT
+pg_stat_database.datname AS DatabaseName,
+MAX(pg_stat_database.tup_returned) AS TotalReads,
+MAX(pg_stat_database.tup_inserted + pg_stat_database.tup_updated + pg_stat_database.tup_deleted) AS TotalWrites,
+MAX(pg_stat_database.tup_returned + pg_stat_database.tup_inserted + pg_stat_database.tup_updated
++ pg_stat_database.tup_deleted) AS IO,
+SUM(pg_stat_statements.calls) AS ExecutionCount
+
+FROM
+pg_catalog.pg_stat_database AS pg_stat_database
+LEFT OUTER JOIN pg_stat_statements AS pg_stat_statements
+ON pg_stat_statements.dbid = pg_stat_database.datid
+GROUP BY
+pg_stat_database.datname
+ORDER BY
+IO Desc
+
+```
+
+### Размер временных таблиц «1С» в Postgres
+
+``` sql
+select relnamespace, sum(relpages::bigint*8192), pg_size_pretty(sum(relpages::bigint*8192))
+from pg_class where relname like 'tt%' group by 1 order by 2 desc;
+select sum(relpages::bigint*8192), pg_size_pretty(sum(relpages::bigint*8192)) from pg_class where relname like 'tt%';
+
+```
+
+### Транзакции, ожидающие на блокировках Postgres
+
+``` sql
+
+SELECT blocked_locks.pid AS blocked_pid,
+blocked_activity.usename AS blocked_user,
+blocking_locks.pid AS blocking_pid,
+blocking_activity.usename AS blocking_user,
+blocked_activity.query AS blocked_statement,
+blocking_activity.query AS current_statement_in_blocking_process,
+blocked_activity.application_name AS blocked_application,
+blocking_activity.application_name AS blocking_application
+FROM pg_catalog.pg_locks blocked_locks
+JOIN pg_catalog.pg_stat_activity blocked_activity ON blocked_activity.pid = blocked_locks.pid
+JOIN pg_catalog.pg_locks blocking_locks
+ON blocking_locks.locktype = blocked_locks.locktype
+AND blocking_locks.DATABASE IS NOT DISTINCT FROM blocked_locks.DATABASE
+AND blocking_locks.relation IS NOT DISTINCT FROM blocked_locks.relation
+AND blocking_locks.page IS NOT DISTINCT FROM blocked_locks.page
+AND blocking_locks.tuple IS NOT DISTINCT FROM blocked_locks.tuple
+AND blocking_locks.virtualxid IS NOT DISTINCT FROM blocked_locks.virtualxid
+AND blocking_locks.transactionid IS NOT DISTINCT FROM blocked_locks.transactionid
+AND blocking_locks.classid IS NOT DISTINCT FROM blocked_locks.classid
+AND blocking_locks.objid IS NOT DISTINCT FROM blocked_locks.objid
+AND blocking_locks.objsubid IS NOT DISTINCT FROM blocked_locks.objsubid
+AND blocking_locks.pid != blocked_locks.pid
+JOIN pg_catalog.pg_stat_activity blocking_activity ON blocking_activity.pid = blocking_locks.pid
+WHERE NOT blocked_locks.GRANTED;
+
+```
+
+### Список текущих блокировок в postgres
+
+``` sql 
+
+SELECT
+l.mode,
+d.datname,
+c.relname,
+l.granted,
+l.transactionid
+FROM
+pg_locks AS l
+LEFT JOIN pg_database AS d ON l.database= d.oid
+LEFT JOIN pg_class AS c ON l.relation = c.oid;
+
+```
+
+### Нагрузка, создаваемая запросами Postgres
+
+``` sql
+
+SELECT
+pg_database.datname AS Database,
+pg_stat_statements.shared_blks_read + pg_stat_statements.shared_blks_written AS Memory,
+pg_stat_statements.local_blks_read + pg_stat_statements.local_blks_written AS IO,
+pg_stat_statements.temp_blks_read + pg_stat_statements.temp_blks_written AS Temp,
+pg_stat_statements.calls AS ExecutionCount,
+pg_stat_statements.total_exec_time ExecutionTime,
+pg_stat_statements.query AS Query
+
+FROM
+pg_stat_statements AS pg_stat_statements
+INNER JOIN pg_database AS pg_database
+ON pg_database.oid = pg_stat_statements.dbid
+ORDER BY
+ExecutionTime DESC
+
+```
+
 !!! info "Источники"
     - [x] [Настройка PostgreSQL 11.5 и 1C: Предприятие 8.3.16 на Windows Server 2008R2](https://infostart.ru/1c/articles/1180438/)
     - [x] [Useful DBA tools by Data Egret](https://github.com/dataegret/pg-utils) - usefull sql scripts
