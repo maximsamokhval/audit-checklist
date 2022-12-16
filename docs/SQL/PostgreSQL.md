@@ -22,6 +22,12 @@ CREATE EXTENSION pg_stat_statements;
 
 Расширение создаст представление с именем pg_stat_statements и сделает данные легко доступными.
 
+#### Сброс накопленной статистики
+
+``` sql 
+select pg_stat_statements_reset();
+```
+
 Самый простой способ найти наиболее интересные запросы — отсортировать вывод pg_stat_statements по total_time:
 
 	
