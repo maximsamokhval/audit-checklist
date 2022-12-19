@@ -7,6 +7,7 @@
   - [Расследование ошибок на управляемых блокировках](#расследование-ошибок-на-управляемых-блокировках)
   - [Поиск контекста запроса](#поиск-контекста-запроса)
   - [Основные свойства событий ТЖ](#основные-свойства-событий-тж)
+    - [Анализ Техножурнала: Файл не обнаружен 'SprScndInfo'](#анализ-техножурнала-файл-не-обнаружен-sprscndinfo)
 
 
 ## Рекомендованный дежурный пример ТЖ
@@ -884,3 +885,37 @@
 ● имя кнопки командной панели (если она была нажата);
 
 ● действие, выполняемое элементом формы;
+
+
+
+
+
+### Анализ Техножурнала: Файл не обнаружен 'SprScndInfo'
+
+``` 
+src\DataSeparationService.cpp(3456):
+9db1fa37-b455-4f3f-b8dd-7de0ea7d6da3: Файл не обнаружен 'v8srvr://ИМЯСЕРВЕРА/ИМЯБАЗЫ/Files/SprScndInfo'
+9db1fa37-b455-4f3f-b8dd-7de0ea7d6da3: Файл не обнаружен 'SprScndInfo'
+```
+
+
+Для БД без разделителей это нормально. Я обычно настраиваю ТЖ на игнорирование этого исключения.
+
+``` xml
+
+
+<log location="C:\1c\techlog\excp\" history="168">
+<event>
+<eq property="name" value="excp"/>
+<like property="p:processname" value="%"/>
+<ne property="Exception" value="9db1fa37-b455-4f3f-b8dd-7de0ea7d6da3"/>
+</event>
+<event>
+<eq property="name" value="excpcntx"/>
+<like property="p:processname" value="%"/>
+</event>
+<property name="all"/>
+</log>
+
+
+```
