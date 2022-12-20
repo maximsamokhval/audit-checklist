@@ -330,6 +330,14 @@ FROM tempdb.sys.dm_db_file_space_usage
 
 ```
 
+### DBA Fundamentals: Configuration: Database Mail
+
+<iframe width="640" height="480" src="https://www.youtube.com/embed/WjhJJxZeU9w" title="DBA Fundamentals: Configuration: Database Mail" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+### DBA Fundamentals - Backups 3 - Setting Up Maintenance Plans
+
+<iframe width="640" height="480" src="https://www.youtube.com/embed/7zlCBhvFkhM" title="DBA Fundamentals - Backups 3 - Setting Up Maintenance Plans" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 !!! info "Источники"
      - [ИТС.Настройки Microsoft SQL Server для работы с 1С:Предприятием](https://its.1c.ru/db/metod8dev/content/5904/hdoc) В данной статье приводится описание действий по настройке Microsoft SQL Server. Можно использовать как check-list для контроля.
