@@ -285,7 +285,47 @@ WHERE qs.last_execution_time > '2016-08-01 11:30:00.000' /* 1. Date & Time filte
   * Execution_count (количество выполнений).
 
 
+### Проверить, что база в режиме "версионника"
+
+Как работает версионирование
+
+Берем примеру десять пользователей, которые читают остатки на складе.
+В обычном режиме MS SQL Server каждый делает попытку наложить блокировку на строку с нужной записью остатков.
+Когда вы включите версионирование, то каждый пользователь прочитает ВЕРСИЮ,
+которая предварительно будет помещена из основной базы в tempdb.
+Затем сделает транзакцию и удалит версию.
+
+Если положить tempdb на медленные диски (умышлено), то по отношению к текущему состоянию скорость в рамках одного потока замедлится, но общая параллельность все равно улучшиться.
+
+Надо понимать что любые технические решения имеют ВСЕГДА И ПЛЮСЫ И МИНУСЫ
+и надо уметь выбирать какие плюсы имеют большее значение чем минусы!
+
+[Infostart.Убираем блокировки" в 1С](https://infostart.ru/1c/articles/91879/)
+
+``` sql 
+
+select name,snapshot_isolation_state_desc,is_read_committed_snapshot_on  from sys.databases
+
+```
+
+### Размер tempdb под данные версий 
+
+``` sql 
+
+SELECT SUM(version_store_reserved_page_count)*8 as version_store_kb,
+SUM(user_object_reserved_page_count)*8 as usr_obj_kb,
+SUM(internal_object_reserved_page_count)*8 as internal_obj_kb,
+SUM(unallocated_extent_page_count)*8 as freespace_kb,
+SUM(mixed_extent_page_count)*8 as mixedextent_kb
+FROM tempdb.sys.dm_db_file_space_usage
+
+```
+
+
 !!! info "Источники"
+     - [ИТС.Настройки Microsoft SQL Server для работы с 1С:Предприятием](https://its.1c.ru/db/metod8dev/content/5904/hdoc) В данной статье приводится описание действий по настройке Microsoft SQL Server. Можно использовать как check-list для контроля.
+     - [Регламентные операции на уровне СУБД для MS SQL Server](https://its.1c.ru/db/metod8dev/content/5837/hdoc) Инструкция по выполнению регламентных операций на уровне СУБД.
+     - [Высокая загрузка CPU на сервере СУБД MS SQL Server](https://its.1c.ru/db/metod8dev#content:5861:hdoc) Наблюдаем высокую загрузку CPU по счетчикам Processor Time на сервере СУБД c MS SQL Server. Что делать?
      - [Анализируем ожидания с помощью динамического административного представления SQL](https://www.osp.ru/winitpro/2018/02/13054056)
      - [gilev.ru "CXPACKET в топе по ожиданиям на MSSSQL"](http://www.gilev.ru/forum/viewtopic.php?f=18&t=1201&sid=a2f93a47336babab8f21cdf92d9c23fe)
      - [CXPACKET](https://www.sqlskills.com/help/waits/cxpacket/)
