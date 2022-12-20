@@ -15,5 +15,9 @@
     Если на сервере больше 12 ядер и Вы хотите, чтобы 1С использовала их все, необходимо приобрести версию КОРП.
 
 
+<iframe width="640" height="480" src="https://www.youtube.com/embed/OpD97-x9rmM" title="1С:Центр управления производительностью (ЦУП) (подготовка к 1С:Эксперт по технологическим вопросам)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+## 1С:Центр управления производительностью (ЦУП) 
+
 !!! info "Источники"
      - [x]  [Взломать за 60 секунд. Настройка безопасности](https://is1c.ru/career/blog/vzlomat-za-60-sekund/)
