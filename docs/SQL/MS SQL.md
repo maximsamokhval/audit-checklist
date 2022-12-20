@@ -1,7 +1,7 @@
 # MS SQL. Настройка
 
 - [x] Установить дополнительное программное обеспечение
-    - [x] Скрипты Brent Ozar в базу master [github репозиторий](https://github.com/BrentOzarULTD/SQL-Server-First-Responder-Kit)
+- [x] Скрипты Brent Ozar в базу master [github репозиторий](https://github.com/BrentOzarULTD/SQL-Server-First-Responder-Kit)
 
 ## Проверка статистики ожиданий
 
@@ -151,7 +151,9 @@ ELSE qs.statement_end_offset END - qs.statement_start_offset)/2)
 FROM sys.dm_exec_query_stats qs
 CROSS APPLY sys.dm_exec_sql_text(qs.sql_handle) as qt
 ORDER BY [Average IO] DESC;
+
 ```
+
 </details>
 
 - [x] Поиск запросов, выполняющих сканирование таблиц 
@@ -176,6 +178,7 @@ WHERE (i.range_scan_count + i.leaf_insert_count
        + i.leaf_page_merge_count + i.singleton_lookup_count) != 0
 AND objectproperty(i.object_id,'IsUserTable') = 1
 ORDER BY [Percent_Scan] ESC
+
 ```
 </details>
 
@@ -203,9 +206,11 @@ ORDER BY [Percent_Scan] ESC
 
 Следует отметить, что это решение не освобождает от необходимости оптимизировать «тяжелые» запросы, но оно хотя бы не мешает другим операциям выполняться быстро.
 <details>  
+
   <summary>Установка cost threshold for parallelism</summary>
 
 ``` SQL 
+
   EXEC sys.sp_configure N'show advanced options', N'1' RECONFIGURE WITH OVERRIDE
   GO
   EXEC sys.sp_configure N'cost threshold for parallelism', N'30'
@@ -304,7 +309,11 @@ WHERE qs.last_execution_time > '2016-08-01 11:30:00.000' /* 1. Date & Time filte
 
 ``` sql 
 
-select name,snapshot_isolation_state_desc,is_read_committed_snapshot_on  from sys.databases
+select name
+,snapshot_isolation_state_desc
+,is_read_committed_snapshot_on
+
+  from sys.databases
 
 ```
 
