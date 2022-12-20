@@ -73,3 +73,11 @@ rem sc delete %SrvcName%
 sc create %SrvcName% binPath= %BinPath% start= auto displayname= %Desctiption%
 
 ```
+
+
+
+## Настройка сборки данных в Performance Monitor Windows Server
+
+
+
+[Инфостарт. Источник](https://infostart.ru/1c/articles/1437774/)

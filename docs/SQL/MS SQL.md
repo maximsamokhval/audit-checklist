@@ -339,6 +339,18 @@ FROM tempdb.sys.dm_db_file_space_usage
 
 <iframe width="640" height="480" src="https://www.youtube.com/embed/7zlCBhvFkhM" title="DBA Fundamentals - Backups 3 - Setting Up Maintenance Plans" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
+
+### Обслуживание баз данных
+
+
+[SQL Server Index and Statistics Maintenance.ola.hallengren.com](https://ola.hallengren.com/sql-server-index-and-statistics-maintenance.html)
+
+
+
+
+
+
+
 !!! info "Источники"
      - [ИТС.Настройки Microsoft SQL Server для работы с 1С:Предприятием](https://its.1c.ru/db/metod8dev/content/5904/hdoc) В данной статье приводится описание действий по настройке Microsoft SQL Server. Можно использовать как check-list для контроля.
      - [Регламентные операции на уровне СУБД для MS SQL Server](https://its.1c.ru/db/metod8dev/content/5837/hdoc) Инструкция по выполнению регламентных операций на уровне СУБД.

@@ -16,4 +16,11 @@
 - [x] Проверить, сколько ядер используют MS SQL Server
 - [x] Проверить выполнение регламентных операций СУБД (индексы, статистика, бекапы)
 
+
+
 [Перечень данных, необходимых для расследования технологических проблем.](https://its.1c.ru/db/metod8dev#content:6005:hdoc) 
+
+
+
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=PLLbbYbSDiWveSmG0dDKj_D5tVysv32mI6" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
