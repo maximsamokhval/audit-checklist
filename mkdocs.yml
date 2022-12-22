@@ -93,6 +93,7 @@ nav:
   - Начало: index.md
   - SQL Docs:
       - MS SQL: SQL/MS SQL.md
+      - MS SQL (troubleshooting): SQL/ms_sql_troubleshooting.md      
       - PostgreSQL: SQL/PostgreSQL.md
       - lifehacks: SQL/lifehacks.md
   - 1С:Предприятие:
