@@ -2,6 +2,7 @@
   - [SQL Server Memory Buffer Pools](#sql-server-memory-buffer-pools)
   - [SQL Server Buffer Pool in action](#sql-server-buffer-pool-in-action)
   - [Troubleshooting the CXPACKET wait type in SQL Server](#troubleshooting-the-cxpacket-wait-type-in-sql-server)
+  - [Showplan Operator of the Week – SORT](#showplan-operator-of-the-week--sort)
 
 
 # MS SQL. Troubleshooting
@@ -113,9 +114,23 @@ ORDER BY SUM(pages_kb) / 1024 DESC
 
 
 
+## Showplan Operator of the Week – SORT
+
+[Operator of the Week – SORT](https://www.red-gate.com/simple-talk/databases/sql-server/learn/showplan-operator-of-the-week-sort/)
+
+
+
+
+
+
 - [x] [SQL Server Buffer Pool in action](https://www.sqlshack.com/sql-server-buffer-pool-action/)
 - [x] [Troubleshooting the CXPACKET wait type in SQL Server](https://www.sqlshack.com/troubleshooting-the-cxpacket-wait-type-in-sql-server/)
 - [x] [SQL Server Memory Buffer Pools: Understand the Basics](https://logicalread.com/sql-server-memory-buffer-pools-pd01/)
+- [ ] [Fabiano Amorim](https://www.red-gate.com/simple-talk/author/fabiano-amorim/) - цикл статей про ms sql 
+- [x] [Справочник по логическим и физическим операторам Showplan](https://learn.microsoft.com/ru-ru/sql/relational-databases/showplan-logical-and-physical-operators-reference?view=sql-server-ver16) Операторы описывают, как SQL Server выполняет запрос или    
+      инструкцию языка DML. Оптимизатор запросов использует операторы для построения плана запроса, чтобы создать результат, заданный в запросе, или произвести операцию, указанную в инструкции DML. План запроса — это дерево физических операторов. Можно просмотреть план запроса с помощью инструкций SET SHOWPLAN, параметров графического плана выполнения в среде SQL Server Management Studioи классов событий SQL Server Profiler Showplan.
+
+
 
 
 
