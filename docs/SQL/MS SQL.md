@@ -345,11 +345,20 @@ FROM tempdb.sys.dm_db_file_space_usage
 
 [SQL Server Index and Statistics Maintenance.ola.hallengren.com](https://ola.hallengren.com/sql-server-index-and-statistics-maintenance.html)
 
+### Тестовая нагрузка на SQL 
+
+[DISKSPD is a storage load generator / performance test tool](https://github.com/microsoft/diskspd)
 
 
+DiskSpd is a storage performance tool from the Windows, Windows Server and Cloud Server Infrastructure engineering teams at Microsoft. Please visit https://github.com/Microsoft/diskspd/wiki for updated documentation.
 
+In addition to the tool itself, this repository hosts measurement frameworks which utilize DiskSpd. The initial example is VM Fleet, used for Windows Server Hyper-Converged environments with Storage Spaces Direct.
 
+``` cmd 
 
+diskspd -b8K -d180 -Sh -L -o32 -t6 -r -w75 -c15G -v f:\111\IO.dat f:\111\IO2.dat > resultfile.txt
+
+```
 
 !!! info "Источники"
      - [ИТС.Настройки Microsoft SQL Server для работы с 1С:Предприятием](https://its.1c.ru/db/metod8dev/content/5904/hdoc) В данной статье приводится описание действий по настройке Microsoft SQL Server. Можно использовать как check-list для контроля.
