@@ -1,0 +1,1394 @@
+
+<!doctype html>
+<html lang="ru" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Сборник полезной информации по настройке рабочего окружения">
+      
+      
+        <meta name="author" content="Maxim Samokhval">
+      
+      
+        <link rel="canonical" href="https://maximsamokhval.github.io/audit-checklist/SQL/MS%20SQL/">
+      
+      
+        <link rel="prev" href="../..">
+      
+      
+        <link rel="next" href="../ms_sql_troubleshooting/">
+      
+      
+        <link rel="alternate" type="application/rss+xml" title="RSS канал" href="../../feed_rss_created.xml">
+        <link rel="alternate" type="application/rss+xml" title="RSS канал с новым контентом" href="../../feed_rss_updated.xml">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
+    
+    
+      
+        <title>MS SQL - Справочник. Настройки рабочего окружения</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.50c56a3b.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Play:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Play";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="light-blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ms-sql" class="md-skip">
+          Перейти к содержанию
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Верхний колонтитул">
+    <a href="../.." title="Справочник. Настройки рабочего окружения" class="md-header__button md-logo" aria-label="Справочник. Настройки рабочего окружения" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Справочник. Настройки рабочего окружения
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              MS SQL
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="light-blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="blue-grey" data-md-color-accent="deep-orange"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9v1Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Поиск" placeholder="Поиск" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Поиск">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Поделиться" aria-label="Поделиться" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Очистить" aria-label="Очистить" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Инициализация поиска
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/maximsamokhval/audit-checklist" title="Перейти к репозиторию" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M216.29 158.39H137C97 147.9 6.51 150.63 6.51 233.18c0 30.09 15 51.23 35 61-25.1 23-37 33.85-37 49.21 0 11 4.47 21.14 17.89 26.81C8.13 383.61 0 393.35 0 411.65c0 32.11 28.05 50.82 101.63 50.82 70.75 0 111.79-26.42 111.79-73.18 0-58.66-45.16-56.5-151.63-63l13.43-21.55c27.27 7.58 118.7 10 118.7-67.89 0-18.7-7.73-31.71-15-41.07l37.41-2.84zm-63.42 241.9c0 32.06-104.89 32.1-104.89 2.43 0-8.14 5.27-15 10.57-21.54 77.71 5.3 94.32 3.37 94.32 19.11zm-50.81-134.58c-52.8 0-50.46-71.16 1.2-71.16 49.54 0 50.82 71.16-1.2 71.16zm133.3 100.51v-32.1c26.75-3.66 27.24-2 27.24-11V203.61c0-8.5-2.05-7.38-27.24-16.26l4.47-32.92H324v168.71c0 6.51.4 7.32 6.51 8.14l20.73 2.84v32.1zm52.45-244.31c-23.17 0-36.59-13.43-36.59-36.61s13.42-35.77 36.59-35.77c23.58 0 37 12.62 37 35.77s-13.42 36.61-37 36.61zM512 350.46c-17.49 8.53-43.1 16.26-66.28 16.26-48.38 0-66.67-19.5-66.67-65.46V194.75c0-5.42 1.05-4.06-31.71-4.06V154.5c35.78-4.07 50-22 54.47-66.27h38.63c0 65.83-1.34 61.81 3.26 61.81H501v40.65h-60.56v97.15c0 6.92-4.92 51.41 60.57 26.84z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    maximsamokhval/audit-checklist
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Навигация" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Справочник. Настройки рабочего окружения" class="md-nav__button md-logo" aria-label="Справочник. Настройки рабочего окружения" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Справочник. Настройки рабочего окружения
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/maximsamokhval/audit-checklist" title="Перейти к репозиторию" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M216.29 158.39H137C97 147.9 6.51 150.63 6.51 233.18c0 30.09 15 51.23 35 61-25.1 23-37 33.85-37 49.21 0 11 4.47 21.14 17.89 26.81C8.13 383.61 0 393.35 0 411.65c0 32.11 28.05 50.82 101.63 50.82 70.75 0 111.79-26.42 111.79-73.18 0-58.66-45.16-56.5-151.63-63l13.43-21.55c27.27 7.58 118.7 10 118.7-67.89 0-18.7-7.73-31.71-15-41.07l37.41-2.84zm-63.42 241.9c0 32.06-104.89 32.1-104.89 2.43 0-8.14 5.27-15 10.57-21.54 77.71 5.3 94.32 3.37 94.32 19.11zm-50.81-134.58c-52.8 0-50.46-71.16 1.2-71.16 49.54 0 50.82 71.16-1.2 71.16zm133.3 100.51v-32.1c26.75-3.66 27.24-2 27.24-11V203.61c0-8.5-2.05-7.38-27.24-16.26l4.47-32.92H324v168.71c0 6.51.4 7.32 6.51 8.14l20.73 2.84v32.1zm52.45-244.31c-23.17 0-36.59-13.43-36.59-36.61s13.42-35.77 36.59-35.77c23.58 0 37 12.62 37 35.77s-13.42 36.61-37 36.61zM512 350.46c-17.49 8.53-43.1 16.26-66.28 16.26-48.38 0-66.67-19.5-66.67-65.46V194.75c0-5.42 1.05-4.06-31.71-4.06V154.5c35.78-4.07 50-22 54.47-66.27h38.63c0 65.83-1.34 61.81 3.26 61.81H501v40.65h-60.56v97.15c0 6.92-4.92 51.41 60.57 26.84z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    maximsamokhval/audit-checklist
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Начало
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    SQL Docs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            SQL Docs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    MS SQL
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    MS SQL
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Содержание">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Содержание
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Проверка статистики ожиданий
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Проверка статистики ожиданий">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#data-collection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Рекомендации (Data Collection)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ms-sql-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      Настроить параллелизм в MS SQL Server
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Настроить параллелизм в MS SQL Server">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Несколько ситуаций, при которых не стоит отключать распараллеливание:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ms-sql-server_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Проверить, сколько ядер использует MS SQL Server
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Планы запросов
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Планы запросов">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Проверить, что база в режиме "версионника"
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tempdb" class="md-nav__link">
+    <span class="md-ellipsis">
+      Размер tempdb под данные версий
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dba-fundamentals-configuration-database-mail" class="md-nav__link">
+    <span class="md-ellipsis">
+      DBA Fundamentals: Configuration: Database Mail
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dba-fundamentals-backups-3-setting-up-maintenance-plans" class="md-nav__link">
+    <span class="md-ellipsis">
+      DBA Fundamentals - Backups 3 - Setting Up Maintenance Plans
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Обслуживание баз данных
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sql" class="md-nav__link">
+    <span class="md-ellipsis">
+      Тестовая нагрузка на SQL
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ms_sql_troubleshooting/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MS SQL (troubleshooting)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PostgreSQL/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PostgreSQL
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lifehacks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    lifehacks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    1С:Предприятие
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            1С:Предприятие
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1CServer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Настройка
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Windows
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Windows
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Windows/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Настройка
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Технологический журнал
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Технологический журнал
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../TechJournal/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Настройка
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../TechJournal/analyse/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Анализ
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Заметки
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Заметки
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Index
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Про сайт
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Про сайт
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Index
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="ms-sql">MS SQL. Настройка<a class="headerlink" href="#ms-sql" title="Permanent link">&para;</a></h1>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Установить дополнительное программное обеспечение</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Скрипты Brent Ozar в базу master <a href="https://github.com/BrentOzarULTD/SQL-Server-First-Responder-Kit">github репозиторий</a></li>
+</ul>
+<h2 id="_1">Проверка статистики ожиданий<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Выполнить скрипт проверяющий ожидания, основанный на статистических данных</li>
+</ul>
+<details>
+  <summary>Скрипт "Tell me where it hurts"</summary>
+
+<div class="highlight"><pre><span></span><code><span class="c1">-- Last updated October 1, 2021</span>
+<span class="k">WITH</span><span class="w"> </span><span class="p">[</span><span class="n">Waits</span><span class="p">]</span><span class="w"> </span><span class="k">AS</span>
+<span class="w">    </span><span class="p">(</span><span class="k">SELECT</span>
+<span class="w">        </span><span class="p">[</span><span class="n">wait_type</span><span class="p">],</span>
+<span class="w">        </span><span class="p">[</span><span class="n">wait_time_ms</span><span class="p">]</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">1000</span><span class="p">.</span><span class="mi">0</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">[</span><span class="n">WaitS</span><span class="p">],</span>
+<span class="w">        </span><span class="p">([</span><span class="n">wait_time_ms</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="p">[</span><span class="n">signal_wait_time_ms</span><span class="p">])</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">1000</span><span class="p">.</span><span class="mi">0</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">[</span><span class="n">ResourceS</span><span class="p">],</span>
+<span class="w">        </span><span class="p">[</span><span class="n">signal_wait_time_ms</span><span class="p">]</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">1000</span><span class="p">.</span><span class="mi">0</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">[</span><span class="n">SignalS</span><span class="p">],</span>
+<span class="w">        </span><span class="p">[</span><span class="n">waiting_tasks_count</span><span class="p">]</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">[</span><span class="n">WaitCount</span><span class="p">],</span>
+<span class="w">        </span><span class="mi">100</span><span class="p">.</span><span class="mi">0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">[</span><span class="n">wait_time_ms</span><span class="p">]</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="k">SUM</span><span class="w"> </span><span class="p">([</span><span class="n">wait_time_ms</span><span class="p">])</span><span class="w"> </span><span class="n">OVER</span><span class="p">()</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">[</span><span class="n">Percentage</span><span class="p">],</span>
+<span class="w">        </span><span class="n">ROW_NUMBER</span><span class="p">()</span><span class="w"> </span><span class="n">OVER</span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="p">[</span><span class="n">wait_time_ms</span><span class="p">]</span><span class="w"> </span><span class="k">DESC</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">[</span><span class="n">RowNum</span><span class="p">]</span>
+<span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">sys</span><span class="p">.</span><span class="n">dm_os_wait_stats</span>
+<span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="p">[</span><span class="n">wait_type</span><span class="p">]</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span>
+<span class="w">        </span><span class="c1">-- These wait types are almost 100% never a problem and so they are</span>
+<span class="w">        </span><span class="c1">-- filtered out to avoid them skewing the results. Click on the URL</span>
+<span class="w">        </span><span class="c1">-- for more information.</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;BROKER_EVENTHANDLER&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/BROKER_EVENTHANDLER</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;BROKER_RECEIVE_WAITFOR&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/BROKER_RECEIVE_WAITFOR</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;BROKER_TASK_STOP&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/BROKER_TASK_STOP</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;BROKER_TO_FLUSH&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/BROKER_TO_FLUSH</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;BROKER_TRANSMITTER&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/BROKER_TRANSMITTER</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;CHECKPOINT_QUEUE&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/CHECKPOINT_QUEUE</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;CHKPT&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/CHKPT</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;CLR_AUTO_EVENT&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/CLR_AUTO_EVENT</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;CLR_MANUAL_EVENT&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/CLR_MANUAL_EVENT</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;CLR_SEMAPHORE&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/CLR_SEMAPHORE</span>
+
+<span class="w">        </span><span class="c1">-- Maybe comment this out if you have parallelism issues</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;CXCONSUMER&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/CXCONSUMER</span>
+
+<span class="w">        </span><span class="c1">-- Maybe comment these four out if you have mirroring issues</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;DBMIRROR_DBM_EVENT&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/DBMIRROR_DBM_EVENT</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;DBMIRROR_EVENTS_QUEUE&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/DBMIRROR_EVENTS_QUEUE</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;DBMIRROR_WORKER_QUEUE&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/DBMIRROR_WORKER_QUEUE</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;DBMIRRORING_CMD&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/DBMIRRORING_CMD</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;DIRTY_PAGE_POLL&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/DIRTY_PAGE_POLL</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;DISPATCHER_QUEUE_SEMAPHORE&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/DISPATCHER_QUEUE_SEMAPHORE</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;EXECSYNC&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/EXECSYNC</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;FSAGENT&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/FSAGENT</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;FT_IFTS_SCHEDULER_IDLE_WAIT&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/FT_IFTS_SCHEDULER_IDLE_WAIT</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;FT_IFTSHC_MUTEX&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/FT_IFTSHC_MUTEX</span>
+
+<span class="w">       </span><span class="c1">-- Maybe comment these six out if you have AG issues</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;HADR_CLUSAPI_CALL&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/HADR_CLUSAPI_CALL</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;HADR_FILESTREAM_IOMGR_IOCOMPLETION&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/HADR_FILESTREAM_IOMGR_IOCOMPLETION</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;HADR_LOGCAPTURE_WAIT&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/HADR_LOGCAPTURE_WAIT</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;HADR_NOTIFICATION_DEQUEUE&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/HADR_NOTIFICATION_DEQUEUE</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;HADR_TIMER_TASK&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/HADR_TIMER_TASK</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;HADR_WORK_QUEUE&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/HADR_WORK_QUEUE</span>
+
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;KSOURCE_WAKEUP&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/KSOURCE_WAKEUP</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;LAZYWRITER_SLEEP&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/LAZYWRITER_SLEEP</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;LOGMGR_QUEUE&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/LOGMGR_QUEUE</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;MEMORY_ALLOCATION_EXT&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/MEMORY_ALLOCATION_EXT</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;ONDEMAND_TASK_QUEUE&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/ONDEMAND_TASK_QUEUE</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;PARALLEL_REDO_DRAIN_WORKER&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/PARALLEL_REDO_DRAIN_WORKER</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;PARALLEL_REDO_LOG_CACHE&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/PARALLEL_REDO_LOG_CACHE</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;PARALLEL_REDO_TRAN_LIST&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/PARALLEL_REDO_TRAN_LIST</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;PARALLEL_REDO_WORKER_SYNC&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/PARALLEL_REDO_WORKER_SYNC</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;PARALLEL_REDO_WORKER_WAIT_WORK&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/PARALLEL_REDO_WORKER_WAIT_WORK</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;PREEMPTIVE_OS_FLUSHFILEBUFFERS&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/PREEMPTIVE_OS_FLUSHFILEBUFFERS</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;PREEMPTIVE_XE_GETTARGETSTATE&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/PREEMPTIVE_XE_GETTARGETSTATE</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;PVS_PREALLOCATE&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/PVS_PREALLOCATE</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;PWAIT_ALL_COMPONENTS_INITIALIZED&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/PWAIT_ALL_COMPONENTS_INITIALIZED</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;PWAIT_DIRECTLOGCONSUMER_GETNEXT&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/PWAIT_DIRECTLOGCONSUMER_GETNEXT</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;QDS_PERSIST_TASK_MAIN_LOOP_SLEEP&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/QDS_PERSIST_TASK_MAIN_LOOP_SLEEP</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;QDS_ASYNC_QUEUE&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/QDS_ASYNC_QUEUE</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;QDS_CLEANUP_STALE_QUERIES_TASK_MAIN_LOOP_SLEEP&#39;</span><span class="p">,</span>
+<span class="w">            </span><span class="c1">-- https://www.sqlskills.com/help/waits/QDS_CLEANUP_STALE_QUERIES_TASK_MAIN_LOOP_SLEEP</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;QDS_SHUTDOWN_QUEUE&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/QDS_SHUTDOWN_QUEUE</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;REDO_THREAD_PENDING_WORK&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/REDO_THREAD_PENDING_WORK</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;REQUEST_FOR_DEADLOCK_SEARCH&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/REQUEST_FOR_DEADLOCK_SEARCH</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;RESOURCE_QUEUE&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/RESOURCE_QUEUE</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;SERVER_IDLE_CHECK&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/SERVER_IDLE_CHECK</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;SLEEP_BPOOL_FLUSH&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/SLEEP_BPOOL_FLUSH</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;SLEEP_DBSTARTUP&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/SLEEP_DBSTARTUP</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;SLEEP_DCOMSTARTUP&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/SLEEP_DCOMSTARTUP</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;SLEEP_MASTERDBREADY&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/SLEEP_MASTERDBREADY</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;SLEEP_MASTERMDREADY&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/SLEEP_MASTERMDREADY</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;SLEEP_MASTERUPGRADED&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/SLEEP_MASTERUPGRADED</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;SLEEP_MSDBSTARTUP&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/SLEEP_MSDBSTARTUP</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;SLEEP_SYSTEMTASK&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/SLEEP_SYSTEMTASK</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;SLEEP_TASK&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/SLEEP_TASK</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;SLEEP_TEMPDBSTARTUP&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/SLEEP_TEMPDBSTARTUP</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;SNI_HTTP_ACCEPT&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/SNI_HTTP_ACCEPT</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;SOS_WORK_DISPATCHER&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/SOS_WORK_DISPATCHER</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;SP_SERVER_DIAGNOSTICS_SLEEP&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/SP_SERVER_DIAGNOSTICS_SLEEP</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;SQLTRACE_BUFFER_FLUSH&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/SQLTRACE_BUFFER_FLUSH</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;SQLTRACE_INCREMENTAL_FLUSH_SLEEP&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/SQLTRACE_INCREMENTAL_FLUSH_SLEEP</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;SQLTRACE_WAIT_ENTRIES&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/SQLTRACE_WAIT_ENTRIES</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;VDI_CLIENT_OTHER&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/VDI_CLIENT_OTHER</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;WAIT_FOR_RESULTS&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/WAIT_FOR_RESULTS</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;WAITFOR&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/WAITFOR</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;WAITFOR_TASKSHUTDOWN&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/WAITFOR_TASKSHUTDOWN</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;WAIT_XTP_RECOVERY&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/WAIT_XTP_RECOVERY</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;WAIT_XTP_HOST_WAIT&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/WAIT_XTP_HOST_WAIT</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;WAIT_XTP_OFFLINE_CKPT_NEW_LOG&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/WAIT_XTP_OFFLINE_CKPT_NEW_LOG</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;WAIT_XTP_CKPT_CLOSE&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/WAIT_XTP_CKPT_CLOSE</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;XE_DISPATCHER_JOIN&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/XE_DISPATCHER_JOIN</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;XE_DISPATCHER_WAIT&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/XE_DISPATCHER_WAIT</span>
+<span class="w">        </span><span class="n">N</span><span class="s1">&#39;XE_TIMER_EVENT&#39;</span><span class="w"> </span><span class="c1">-- https://www.sqlskills.com/help/waits/XE_TIMER_EVENT</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="w">    </span><span class="k">AND</span><span class="w"> </span><span class="p">[</span><span class="n">waiting_tasks_count</span><span class="p">]</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">    </span><span class="p">)</span>
+<span class="k">SELECT</span>
+<span class="w">    </span><span class="k">MAX</span><span class="w"> </span><span class="p">([</span><span class="n">W1</span><span class="p">].[</span><span class="n">wait_type</span><span class="p">])</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">[</span><span class="n">WaitType</span><span class="p">],</span>
+<span class="w">    </span><span class="k">CAST</span><span class="w"> </span><span class="p">(</span><span class="k">MAX</span><span class="w"> </span><span class="p">([</span><span class="n">W1</span><span class="p">].[</span><span class="n">WaitS</span><span class="p">])</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="nb">DECIMAL</span><span class="w"> </span><span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">[</span><span class="n">Wait_S</span><span class="p">],</span>
+<span class="w">    </span><span class="k">CAST</span><span class="w"> </span><span class="p">(</span><span class="k">MAX</span><span class="w"> </span><span class="p">([</span><span class="n">W1</span><span class="p">].[</span><span class="n">ResourceS</span><span class="p">])</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="nb">DECIMAL</span><span class="w"> </span><span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">[</span><span class="n">Resource_S</span><span class="p">],</span>
+<span class="w">    </span><span class="k">CAST</span><span class="w"> </span><span class="p">(</span><span class="k">MAX</span><span class="w"> </span><span class="p">([</span><span class="n">W1</span><span class="p">].[</span><span class="n">SignalS</span><span class="p">])</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="nb">DECIMAL</span><span class="w"> </span><span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">[</span><span class="n">Signal_S</span><span class="p">],</span>
+<span class="w">    </span><span class="k">MAX</span><span class="w"> </span><span class="p">([</span><span class="n">W1</span><span class="p">].[</span><span class="n">WaitCount</span><span class="p">])</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">[</span><span class="n">WaitCount</span><span class="p">],</span>
+<span class="w">    </span><span class="k">CAST</span><span class="w"> </span><span class="p">(</span><span class="k">MAX</span><span class="w"> </span><span class="p">([</span><span class="n">W1</span><span class="p">].[</span><span class="n">Percentage</span><span class="p">])</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="nb">DECIMAL</span><span class="w"> </span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">[</span><span class="n">Percentage</span><span class="p">],</span>
+<span class="w">    </span><span class="k">CAST</span><span class="w"> </span><span class="p">((</span><span class="k">MAX</span><span class="w"> </span><span class="p">([</span><span class="n">W1</span><span class="p">].[</span><span class="n">WaitS</span><span class="p">])</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="k">MAX</span><span class="w"> </span><span class="p">([</span><span class="n">W1</span><span class="p">].[</span><span class="n">WaitCount</span><span class="p">]))</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="nb">DECIMAL</span><span class="w"> </span><span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">[</span><span class="n">AvgWait_S</span><span class="p">],</span>
+<span class="w">    </span><span class="k">CAST</span><span class="w"> </span><span class="p">((</span><span class="k">MAX</span><span class="w"> </span><span class="p">([</span><span class="n">W1</span><span class="p">].[</span><span class="n">ResourceS</span><span class="p">])</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="k">MAX</span><span class="w"> </span><span class="p">([</span><span class="n">W1</span><span class="p">].[</span><span class="n">WaitCount</span><span class="p">]))</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="nb">DECIMAL</span><span class="w"> </span><span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">[</span><span class="n">AvgRes_S</span><span class="p">],</span>
+<span class="w">    </span><span class="k">CAST</span><span class="w"> </span><span class="p">((</span><span class="k">MAX</span><span class="w"> </span><span class="p">([</span><span class="n">W1</span><span class="p">].[</span><span class="n">SignalS</span><span class="p">])</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="k">MAX</span><span class="w"> </span><span class="p">([</span><span class="n">W1</span><span class="p">].[</span><span class="n">WaitCount</span><span class="p">]))</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="nb">DECIMAL</span><span class="w"> </span><span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">[</span><span class="n">AvgSig_S</span><span class="p">],</span>
+<span class="w">    </span><span class="k">CAST</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;https://www.sqlskills.com/help/waits/&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="k">MAX</span><span class="w"> </span><span class="p">([</span><span class="n">W1</span><span class="p">].[</span><span class="n">wait_type</span><span class="p">])</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">XML</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">[</span><span class="n">Help</span><span class="o">/</span><span class="n">Info</span><span class="w"> </span><span class="n">URL</span><span class="p">]</span>
+<span class="k">FROM</span><span class="w"> </span><span class="p">[</span><span class="n">Waits</span><span class="p">]</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">[</span><span class="n">W1</span><span class="p">]</span>
+<span class="k">INNER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="p">[</span><span class="n">Waits</span><span class="p">]</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">[</span><span class="n">W2</span><span class="p">]</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="p">[</span><span class="n">W2</span><span class="p">].[</span><span class="n">RowNum</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="p">[</span><span class="n">W1</span><span class="p">].[</span><span class="n">RowNum</span><span class="p">]</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="p">[</span><span class="n">W1</span><span class="p">].[</span><span class="n">RowNum</span><span class="p">]</span>
+<span class="k">HAVING</span><span class="w"> </span><span class="k">SUM</span><span class="w"> </span><span class="p">([</span><span class="n">W2</span><span class="p">].[</span><span class="n">Percentage</span><span class="p">])</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="k">MAX</span><span class="p">(</span><span class="w"> </span><span class="p">[</span><span class="n">W1</span><span class="p">].[</span><span class="n">Percentage</span><span class="p">]</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">95</span><span class="p">;</span><span class="w"> </span><span class="c1">-- percentage threshold</span>
+<span class="k">GO</span>
+</code></pre></div>
+</details>
+
+<details>  
+  <summary>Проверка запросов с высокими издержками на ввод-вывод</summary>
+
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">TOP</span><span class="w"> </span><span class="mi">100</span>
+<span class="w">    </span><span class="p">[</span><span class="n">Average</span><span class="w"> </span><span class="n">IO</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">total_logical_reads</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">total_logical_writes</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">qs</span><span class="p">.</span><span class="n">execution_count</span>
+<span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="n">Total</span><span class="w"> </span><span class="n">IO</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">total_logical_reads</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">total_logical_writes</span><span class="p">)</span>
+<span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="n">Execution</span><span class="w"> </span><span class="k">count</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">qs</span><span class="p">.</span><span class="n">execution_count</span>
+<span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="n">Inpidual</span><span class="w"> </span><span class="n">Query</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">SUBSTRING</span><span class="w"> </span><span class="p">(</span><span class="n">qt</span><span class="p">.</span><span class="nb">text</span><span class="p">,</span><span class="n">qs</span><span class="p">.</span><span class="n">statement_start_offset</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span>
+<span class="p">(</span><span class="k">CASE</span><span class="w"> </span><span class="k">WHEN</span><span class="w"> </span><span class="n">qs</span><span class="p">.</span><span class="n">statement_end_offset</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="w"> </span>
+<span class="k">THEN</span><span class="w"> </span><span class="n">LEN</span><span class="p">(</span><span class="k">CONVERT</span><span class="p">(</span><span class="n">NVARCHAR</span><span class="p">(</span><span class="k">MAX</span><span class="p">),</span><span class="w"> </span><span class="n">qt</span><span class="p">.</span><span class="nb">text</span><span class="p">))</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span>
+<span class="k">ELSE</span><span class="w"> </span><span class="n">qs</span><span class="p">.</span><span class="n">statement_end_offset</span><span class="w"> </span><span class="k">END</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">qs</span><span class="p">.</span><span class="n">statement_start_offset</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span>
+<span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="n">Parent</span><span class="w"> </span><span class="n">Query</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">qt</span><span class="p">.</span><span class="nb">text</span>
+<span class="p">,</span><span class="w"> </span><span class="n">DatabaseName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DB_NAME</span><span class="p">(</span><span class="n">qt</span><span class="p">.</span><span class="n">dbid</span><span class="p">)</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">sys</span><span class="p">.</span><span class="n">dm_exec_query_stats</span><span class="w"> </span><span class="n">qs</span>
+<span class="k">CROSS</span><span class="w"> </span><span class="n">APPLY</span><span class="w"> </span><span class="n">sys</span><span class="p">.</span><span class="n">dm_exec_sql_text</span><span class="p">(</span><span class="n">qs</span><span class="p">.</span><span class="n">sql_handle</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">qt</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="p">[</span><span class="n">Average</span><span class="w"> </span><span class="n">IO</span><span class="p">]</span><span class="w"> </span><span class="k">DESC</span><span class="p">;</span>
+</code></pre></div>
+
+</details>
+
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Поиск запросов, выполняющих сканирование таблиц </li>
+</ul>
+<details>  
+  <summary>Поиск запросов, выполняющих сканирование таблиц</summary>
+
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">[</span><span class="k">Table_Name</span><span class="p">],</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">[</span><span class="n">Index_Name</span><span class="p">],</span>
+<span class="w">       </span><span class="n">i</span><span class="p">.</span><span class="n">partition_number</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">[</span><span class="n">Partition</span><span class="p">],</span>
+<span class="w">       </span><span class="n">i</span><span class="p">.</span><span class="n">index_id</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">[</span><span class="n">Index_ID</span><span class="p">],</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">type_desc</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">[</span><span class="n">Index_Type</span><span class="p">],</span>
+<span class="w">       </span><span class="n">i</span><span class="p">.</span><span class="n">range_scan_count</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="p">.</span><span class="mi">0</span><span class="w"> </span><span class="o">/</span>
+<span class="w">           </span><span class="p">(</span><span class="n">i</span><span class="p">.</span><span class="n">range_scan_count</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">leaf_insert_count</span>
+<span class="w">            </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">leaf_delete_count</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">leaf_update_count</span>
+<span class="w">            </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">leaf_page_merge_count</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">singleton_lookup_count</span>
+<span class="w">           </span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">[</span><span class="n">Percent_Scan</span><span class="p">]</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">sys</span><span class="p">.</span><span class="n">dm_db_index_operational_stats</span><span class="w"> </span><span class="p">(</span><span class="n">db_id</span><span class="p">(),</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w"> </span><span class="k">NULL</span><span class="p">)</span><span class="w"> </span><span class="n">i</span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">sys</span><span class="p">.</span><span class="n">objects</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">object_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">object_id</span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">sys</span><span class="p">.</span><span class="n">indexes</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">object_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">object_id</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">index_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">index_id</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="p">.</span><span class="n">range_scan_count</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">leaf_insert_count</span>
+<span class="w">       </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">leaf_delete_count</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">leaf_update_count</span>
+<span class="w">       </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">leaf_page_merge_count</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">singleton_lookup_count</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span>
+<span class="k">AND</span><span class="w"> </span><span class="n">objectproperty</span><span class="p">(</span><span class="n">i</span><span class="p">.</span><span class="n">object_id</span><span class="p">,</span><span class="s1">&#39;IsUserTable&#39;</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="p">[</span><span class="n">Percent_Scan</span><span class="p">]</span><span class="w"> </span><span class="n">ESC</span>
+</code></pre></div>
+</details>
+
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Включить Data Collection</li>
+</ul>
+<h3 id="data-collection">Рекомендации (Data Collection)<a class="headerlink" href="#data-collection" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Создать отдельную базу данных</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Использовать Мастер настройки Data Collection</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Важный отчет</strong> : Server Activity History за 14 дней</p>
+</div>
+<h2 id="ms-sql-server">Настроить параллелизм в MS SQL Server<a class="headerlink" href="#ms-sql-server" title="Permanent link">&para;</a></h2>
+<p>Оставить настройку Max degree of parallelism = 0, но установить настройку Cost threshold for parallelism = 30.</p>
+<p>Такая настройка означает, что MS SQL будет самостоятельно решать, сколько потоков использовать для выполнения одного запроса, но распараллеливание будет включаться, только если стоимость плана запроса будет выше 30.</p>
+<p>Стоимость плана измеряется в неких условных единицах и отражает, насколько «тяжелым» является запрос для исполнения. Чем выше стоимость, тем сильнее запрос нагружает систему. При настройках по умолчанию параллельность включается, если стоимость плана выше 5. Значение 30 — не какая-то сакральная величина: просто, с точки зрения автора, оно подходит для большинства систем.</p>
+<p>Благодаря такой настройке параллельность будет использоваться только для действительно сложных запросов. Запросы полегче продолжат выполняться в один поток — им распараллеливание все равно не дает заметного ускорения.</p>
+<p>Следует отметить, что это решение не освобождает от необходимости оптимизировать «тяжелые» запросы, но оно хотя бы не мешает другим операциям выполняться быстро.</p>
+<details>  
+
+  <summary>Установка cost threshold for parallelism</summary>
+
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="k">EXEC</span><span class="w"> </span><span class="n">sys</span><span class="p">.</span><span class="n">sp_configure</span><span class="w"> </span><span class="n">N</span><span class="s1">&#39;show advanced options&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="s1">&#39;1&#39;</span><span class="w"> </span><span class="n">RECONFIGURE</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">OVERRIDE</span>
+<span class="w">  </span><span class="k">GO</span>
+<span class="w">  </span><span class="k">EXEC</span><span class="w"> </span><span class="n">sys</span><span class="p">.</span><span class="n">sp_configure</span><span class="w"> </span><span class="n">N</span><span class="s1">&#39;cost threshold for parallelism&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="s1">&#39;30&#39;</span>
+<span class="w">  </span><span class="k">GO</span>
+<span class="w">  </span><span class="n">RECONFIGURE</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">OVERRIDE</span>
+<span class="w">  </span><span class="k">GO</span>
+<span class="w">  </span><span class="k">EXEC</span><span class="w"> </span><span class="n">sys</span><span class="p">.</span><span class="n">sp_configure</span><span class="w"> </span><span class="n">N</span><span class="s1">&#39;show advanced options&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="s1">&#39;0&#39;</span><span class="w"> </span><span class="n">RECONFIGURE</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">OVERRIDE</span>
+<span class="w">  </span><span class="k">GO</span>
+</code></pre></div>
+</details>
+
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Сбросить статистику после изменения настроек
+<div class="highlight"><pre><span></span><code><span class="n">DBCC</span><span class="w"> </span><span class="n">SQLPERF</span><span class="w"> </span><span class="p">(</span><span class="n">N</span><span class="s1">&#39;sys.dm_os_wait_stats&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">CLEAR</span><span class="p">);</span>
+<span class="k">GO</span>
+</code></pre></div></li>
+</ul>
+</div>
+<h3 id="_2">Несколько ситуаций, при которых не стоит отключать распараллеливание:<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Описанный в документации случай, когда один запрос при распараллеливании замедляет всех — не самый распространенный паттерн. Чаще неоптимальный запрос выполняется медленно в один поток, хотя мог бы выполняться гораздо быстрее в несколько потоков, при этом несильно загружая процессор.</li>
+<li>Если отключить распараллеливание на уровне сервера, тогда и регламентные операции по умолчанию тоже будут выполняться в один поток. Чтобы этого избежать, нужно указывать настройку распараллеливания (MAXDOP = 0) для регламентного задания дефрагментации/реиндексации, чего многие, к сожалению, не делают.</li>
+<li>Новый механизм реструктуризации работает гораздо быстрее, если включено распараллеливание. Об этом сказано и в документации. Там же предлагается каждый раз перед реструктуризацией включать параллельность, а после обновления — отключать. Но все мы люди, и часто разработчики просто забывают установить параметр в нужное значение. В итоге реструктуризация больших таблиц даже с новым механизмом идет медленно.</li>
+<li>Ожидания CXPACKET зачастую интерпретируются неправильно. Их наличие далеко не всегда говорит о проблемах с распараллеливанием. Если хочется больше узнать об этом, подробности Вы найдете в статье <a href="https://www.sqlshack.com/troubleshooting-the-cxpacket-wait-type-in-sql-server/">Troubleshooting the CXPACKET wait type in SQL Server</a>.</li>
+</ul>
+<h2 id="ms-sql-server_1">Проверить, сколько ядер использует MS SQL Server<a class="headerlink" href="#ms-sql-server_1" title="Permanent link">&para;</a></h2>
+<p>Чтобы узнать, сколько логических процессоров (ядра, в том числе и гиперпоточные) задействует Ваш экземпляр MS SQL, следует выполнить следующий запрос</p>
+<details>  
+  <summary>Количество задействованых логических процессоров</summary>
+
+<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">sys</span><span class="p">.</span><span class="n">dm_os_schedulers</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">‘</span><span class="n">VISIBLE</span><span class="w"> </span><span class="n">ONLINE</span><span class="err">’</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">is_online</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span>
+</code></pre></div>
+</details>
+
+<h2 id="_3">Планы запросов<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>Перед выполнением запроса СУБД проверяет наличие актуального кэшированного плана запроса. Если такой план запроса существует, тогда СУБД использует его, а не компилирует план запроса заново. Это позволяет сократить время выполнения запроса и именно поэтому, после выполнения очистки процедурного кэша, запросы выполняются дольше (происходит компиляция плана запроса). Таким образом, если мы знаем текст искомого запроса, мы можем получить его план из кэша (если он есть в кэше). Для этого необходимо обратиться к следующим динамическим функциям:</p>
+<details>  
+  <summary>ПОЛУЧЕНИЕ КЭШИРОВАННОГО ПЛАНА ЗАПРОСА С ПОМОЩЬЮ ДИНАМИЧЕСКОЙ ФУНКЦИИ</summary>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">TOP</span><span class="w"> </span><span class="mi">20</span>
+<span class="w">    </span><span class="n">qs</span><span class="p">.</span><span class="n">last_execution_time</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">Last_execution_time</span><span class="p">,</span>
+<span class="w">    </span><span class="k">SUBSTRING</span><span class="p">(</span><span class="n">qt</span><span class="p">.</span><span class="nb">text</span><span class="p">,</span><span class="w"> </span>
+<span class="w">                </span><span class="p">(</span><span class="n">qs</span><span class="p">.</span><span class="n">statement_start_offset</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span>
+<span class="w">                </span><span class="p">((</span><span class="k">CASE</span><span class="w"> </span><span class="n">qs</span><span class="p">.</span><span class="n">statement_end_offset</span><span class="w"> </span>
+<span class="w">                        </span><span class="k">WHEN</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="n">DATALENGTH</span><span class="p">(</span><span class="n">qt</span><span class="p">.</span><span class="nb">text</span><span class="p">)</span><span class="w"> </span>
+<span class="w">                        </span><span class="k">ELSE</span><span class="w"> </span><span class="n">qs</span><span class="p">.</span><span class="n">statement_end_offset</span><span class="w"> </span>
+<span class="w">                    </span><span class="k">END</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">qs</span><span class="p">.</span><span class="n">statement_start_offset</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">Query_text</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="n">qp</span><span class="p">.</span><span class="n">query_plan</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">Query_plan</span><span class="p">,</span>
+<span class="w">    </span><span class="n">qs</span><span class="p">.</span><span class="n">execution_count</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">Execution_count</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">sys</span><span class="p">.</span><span class="n">dm_exec_query_stats</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">qs</span>
+<span class="w">    </span><span class="k">CROSS</span><span class="w"> </span><span class="n">APPLY</span><span class="w"> </span><span class="n">sys</span><span class="p">.</span><span class="n">dm_exec_sql_text</span><span class="p">(</span><span class="n">qs</span><span class="p">.</span><span class="n">sql_handle</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">qt</span>
+<span class="w">    </span><span class="k">CROSS</span><span class="w"> </span><span class="n">APPLY</span><span class="w"> </span><span class="n">sys</span><span class="p">.</span><span class="n">dm_exec_query_plan</span><span class="p">(</span><span class="n">qs</span><span class="p">.</span><span class="n">plan_handle</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">qp</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">qs</span><span class="p">.</span><span class="n">last_execution_time</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="s1">&#39;2016-08-01 11:30:00.000&#39;</span><span class="w"> </span><span class="cm">/* 1. Date &amp; Time filter */</span>
+<span class="w">    </span><span class="k">and</span><span class="w"> </span><span class="n">qt</span><span class="p">.</span><span class="nb">text</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;%FROM dbo._AccumRg17539 T1%&#39;</span><span class="w">  </span><span class="cm">/* 2. SQL query text filter */</span>
+<span class="w">    </span><span class="k">and</span><span class="w"> </span><span class="n">qt</span><span class="p">.</span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;%Query Finder%&#39;</span><span class="w"> </span><span class="cm">/* 3. Special condition */</span>
+</code></pre></div>
+</details>
+
+<p>В запросе добавлены условия по:</p>
+<p>Времени последнего выполнения
+Тексту искомого запроса (таких фильтров можно добавить несколько, уточняя результат поиска)
+Специальное условие для того чтобы сам запрос поиска не попадал в результат поиска (менять не надо)
+Результатом запроса будет таблица с колонками:
+  * Last_execution_time (последнее время выполнения), 
+  * Query_text (текст SQL-запроса), 
+  * Query_plan (План SQL-запроса) 
+  * Execution_count (количество выполнений).</p>
+<h3 id="_4">Проверить, что база в режиме "версионника"<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>Как работает версионирование</p>
+<p>Берем примеру десять пользователей, которые читают остатки на складе.
+В обычном режиме MS SQL Server каждый делает попытку наложить блокировку на строку с нужной записью остатков.
+Когда вы включите версионирование, то каждый пользователь прочитает ВЕРСИЮ,
+которая предварительно будет помещена из основной базы в tempdb.
+Затем сделает транзакцию и удалит версию.</p>
+<p>Если положить tempdb на медленные диски (умышлено), то по отношению к текущему состоянию скорость в рамках одного потока замедлится, но общая параллельность все равно улучшиться.</p>
+<p>Надо понимать что любые технические решения имеют ВСЕГДА И ПЛЮСЫ И МИНУСЫ
+и надо уметь выбирать какие плюсы имеют большее значение чем минусы!</p>
+<p><a href="https://infostart.ru/1c/articles/91879/">Infostart.Убираем блокировки" в 1С</a></p>
+<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">name</span>
+<span class="p">,</span><span class="n">snapshot_isolation_state_desc</span>
+<span class="p">,</span><span class="n">is_read_committed_snapshot_on</span>
+
+<span class="w">  </span><span class="k">from</span><span class="w"> </span><span class="n">sys</span><span class="p">.</span><span class="n">databases</span>
+</code></pre></div>
+<h3 id="tempdb">Размер tempdb под данные версий<a class="headerlink" href="#tempdb" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">version_store_reserved_page_count</span><span class="p">)</span><span class="o">*</span><span class="mi">8</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">version_store_kb</span><span class="p">,</span>
+<span class="k">SUM</span><span class="p">(</span><span class="n">user_object_reserved_page_count</span><span class="p">)</span><span class="o">*</span><span class="mi">8</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">usr_obj_kb</span><span class="p">,</span>
+<span class="k">SUM</span><span class="p">(</span><span class="n">internal_object_reserved_page_count</span><span class="p">)</span><span class="o">*</span><span class="mi">8</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">internal_obj_kb</span><span class="p">,</span>
+<span class="k">SUM</span><span class="p">(</span><span class="n">unallocated_extent_page_count</span><span class="p">)</span><span class="o">*</span><span class="mi">8</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">freespace_kb</span><span class="p">,</span>
+<span class="k">SUM</span><span class="p">(</span><span class="n">mixed_extent_page_count</span><span class="p">)</span><span class="o">*</span><span class="mi">8</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">mixedextent_kb</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">tempdb</span><span class="p">.</span><span class="n">sys</span><span class="p">.</span><span class="n">dm_db_file_space_usage</span>
+</code></pre></div>
+<h3 id="dba-fundamentals-configuration-database-mail">DBA Fundamentals: Configuration: Database Mail<a class="headerlink" href="#dba-fundamentals-configuration-database-mail" title="Permanent link">&para;</a></h3>
+<iframe width="640" height="480" src="https://www.youtube.com/embed/WjhJJxZeU9w" title="DBA Fundamentals: Configuration: Database Mail" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<h3 id="dba-fundamentals-backups-3-setting-up-maintenance-plans">DBA Fundamentals - Backups 3 - Setting Up Maintenance Plans<a class="headerlink" href="#dba-fundamentals-backups-3-setting-up-maintenance-plans" title="Permanent link">&para;</a></h3>
+<iframe width="640" height="480" src="https://www.youtube.com/embed/7zlCBhvFkhM" title="DBA Fundamentals - Backups 3 - Setting Up Maintenance Plans" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<h3 id="_5">Обслуживание баз данных<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p><a href="https://ola.hallengren.com/sql-server-index-and-statistics-maintenance.html">SQL Server Index and Statistics Maintenance.ola.hallengren.com</a></p>
+<h3 id="sql">Тестовая нагрузка на SQL<a class="headerlink" href="#sql" title="Permanent link">&para;</a></h3>
+<p><a href="https://github.com/microsoft/diskspd">DISKSPD is a storage load generator / performance test tool</a></p>
+<p>DiskSpd is a storage performance tool from the Windows, Windows Server and Cloud Server Infrastructure engineering teams at Microsoft. Please visit https://github.com/Microsoft/diskspd/wiki for updated documentation.</p>
+<p>In addition to the tool itself, this repository hosts measurement frameworks which utilize DiskSpd. The initial example is VM Fleet, used for Windows Server Hyper-Converged environments with Storage Spaces Direct.</p>
+<div class="highlight"><pre><span></span><code>diskspd -b8K -d180 -Sh -L -o32 -t6 -r -w75 -c15G -v f:\111\IO.dat f:\111\IO2.dat &gt; resultfile.txt
+</code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">Источники</p>
+<ul>
+<li><a href="https://its.1c.ru/db/metod8dev/content/5904/hdoc">ИТС.Настройки Microsoft SQL Server для работы с 1С:Предприятием</a> В данной статье приводится описание действий по настройке Microsoft SQL Server. Можно использовать как check-list для контроля.</li>
+<li><a href="https://its.1c.ru/db/metod8dev/content/5837/hdoc">Регламентные операции на уровне СУБД для MS SQL Server</a> Инструкция по выполнению регламентных операций на уровне СУБД.</li>
+<li><a href="https://its.1c.ru/db/metod8dev#content:5861:hdoc">Высокая загрузка CPU на сервере СУБД MS SQL Server</a> Наблюдаем высокую загрузку CPU по счетчикам Processor Time на сервере СУБД c MS SQL Server. Что делать?</li>
+<li><a href="https://www.osp.ru/winitpro/2018/02/13054056">Анализируем ожидания с помощью динамического административного представления SQL</a></li>
+<li><a href="http://www.gilev.ru/forum/viewtopic.php?f=18&amp;t=1201&amp;sid=a2f93a47336babab8f21cdf92d9c23fe">gilev.ru "CXPACKET в топе по ожиданиям на MSSSQL"</a></li>
+<li><a href="https://www.sqlskills.com/help/waits/cxpacket/">CXPACKET</a></li>
+<li><a href="https://docs.microsoft.com/en-us/sql/t-sql/database-console-commands/dbcc-sqlperf-transact-sql?view=sql-server-ver15">DBCC SQLPERF</a></li>
+<li><a href="https://www.sqlshack.com/troubleshooting-the-cxpacket-wait-type-in-sql-server/">Troubleshooting the CXPACKET wait type in SQL Server</a></li>
+<li><a href="https://youtu.be/x9citabVt2c">Enabling Data Collector</a></li>
+<li><a href="https://docs.microsoft.com/en-us/sql/relational-databases/data-collection/enable-or-disable-data-collection?view=sql-server-ver15">Enable or Disable Data Collection</a></li>
+<li><a href="https://blog.waynesheffield.com/wayne/archive/2016/08/improve-sql-server-io-performance/">improve-sql-server-io-performance</a></li>
+<li><a href="https://support.microsoft.com/en-us/topic/kb2949751-fix-access-violation-occurs-when-you-run-checktable-against-the-tables-with-clustered-column-store-index-in-sql-server-2014-825d3ade-505c-57b6-2924-0f520686aadc">KB2949751 - FIX: Access violation occurs when you run CHECKTABLE against the tables with clustered column store index in SQL Server 2014</a></li>
+<li><a href="https://support.microsoft.com/en-us/topic/recommendations-and-guidelines-on-configuring-disk-partitions-for-sql-server-a25faa94-509f-370b-0975-ee0b26541aa9">Recommendations and Guidelines on configuring disk partitions for SQL Server</a></li>
+<li><a href="https://infostart.ru/1c/articles/1054413/">Диспетчер Хранилища Запросов в SQL Server 2016+ (он же Query Store) infostart.ru</a></li>
+<li><a href="https://docs.microsoft.com/ru-ru/sql/relational-databases/performance/best-practice-with-the-query-store?view=sql-server-ver15">MSDN. Рекомендации по хранилищу запросов</a></li>
+<li><a href="https://github.com/YPermitin/SQLServerTools/tree/master/SQL-Server-Maintenance/Service-Database">Служебная база обслуживания и мониторинга</a></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+  
+    
+  
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Последнее обновление">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 2, 2024</span>
+  </span>
+
+    
+    
+    
+    
+  </aside>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  К началу
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2022 Maxim Samokhval
+    </div>
+  
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://t.me/maksym_samokhval" target="_blank" rel="noopener" title="Telegram me" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M248 8C111.033 8 0 119.033 0 256s111.033 248 248 248 248-111.033 248-248S384.967 8 248 8Zm114.952 168.66c-3.732 39.215-19.881 134.378-28.1 178.3-3.476 18.584-10.322 24.816-16.948 25.425-14.4 1.326-25.338-9.517-39.287-18.661-21.827-14.308-34.158-23.215-55.346-37.177-24.485-16.135-8.612-25 5.342-39.5 3.652-3.793 67.107-61.51 68.335-66.746.153-.655.3-3.1-1.154-4.384s-3.59-.849-5.135-.5q-3.283.746-104.608 69.142-14.845 10.194-26.894 9.934c-8.855-.191-25.888-5.006-38.551-9.123-15.531-5.048-27.875-7.717-26.8-16.291q.84-6.7 18.45-13.7 108.446-47.248 144.628-62.3c68.872-28.647 83.183-33.623 92.511-33.789 2.052-.034 6.639.474 9.61 2.885a10.452 10.452 0 0 1 3.53 6.716 43.765 43.765 0 0 1 .417 9.769Z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/maximsamokhval" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["toc.integrate", "navigation.top", "navigation.sections", "navigation.instant", "navigation.tracking", "header.autohide", "announce.dismiss", "search.highlight", "search.suggest", "search.share"], "search": "../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "\u0421\u043a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u043d\u043e \u0432 \u0431\u0443\u0444\u0435\u0440", "clipboard.copy": "\u041a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u0442\u044c \u0432 \u0431\u0443\u0444\u0435\u0440", "search.result.more.one": "\u0415\u0449\u0451 1 \u043d\u0430 \u044d\u0442\u043e\u0439 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u0435", "search.result.more.other": "\u0415\u0449\u0451 # \u043d\u0430 \u044d\u0442\u043e\u0439 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u0435", "search.result.none": "\u0421\u043e\u0432\u043f\u0430\u0434\u0435\u043d\u0438\u0439 \u043d\u0435 \u043d\u0430\u0439\u0434\u0435\u043d\u043e", "search.result.one": "\u041d\u0430\u0439\u0434\u0435\u043d\u043e 1 \u0441\u043e\u0432\u043f\u0430\u0434\u0435\u043d\u0438\u0435", "search.result.other": "\u041d\u0430\u0439\u0434\u0435\u043d\u043e \u0441\u043e\u0432\u043f\u0430\u0434\u0435\u043d\u0438\u0439: #", "search.result.placeholder": "\u041d\u0430\u0447\u043d\u0438\u0442\u0435 \u043f\u0435\u0447\u0430\u0442\u0430\u0442\u044c \u0434\u043b\u044f \u043f\u043e\u0438\u0441\u043a\u0430", "search.result.term.missing": "\u041e\u0442\u0441\u0443\u0442\u0441\u0442\u0432\u0443\u0435\u0442", "select.version": "\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u0432\u0435\u0440\u0441\u0438\u044e"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7c377c4.min.js"></script>
+      
+    
+  </body>
+</html>
